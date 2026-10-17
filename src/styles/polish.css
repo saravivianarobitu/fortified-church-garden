@@ -1,0 +1,212 @@
+:root {
+  --cream: #f5ebd8;
+  --forest: #405d43;
+  --grass: #8baa67;
+  --soil: #795548;
+  --terracotta: #b85c38;
+  --gold: #e9b44c;
+  --ink: #33291f;
+  --muted: #72664f;
+  --paper: #fff8e9;
+  --line: #d8c6a4;
+  color: var(--ink);
+  background: var(--cream);
+}
+
+.seasonal-event { margin: 0 0 20px; border: 1px solid #c9b58e; border-left: 5px solid var(--gold); border-radius: 10px; background: #fff6df; box-shadow: 0 3px 0 #ddcdaa; }
+.seasonal-event[hidden] { display: none; }
+.seasonal-event summary { display: flex; align-items: center; gap: 14px; padding: 10px 16px; list-style: none; }
+.seasonal-event summary::-webkit-details-marker { display: none; }
+#event-art { width: 64px; height: 64px; flex-shrink: 0; cursor: pointer; }
+.seasonal-event small { display: block; font: 10px/1.6 Arial, sans-serif; color: var(--muted); }
+.seasonal-event strong { display: block; font-size: 20px; color: var(--forest); margin-top: 4px; }
+.event-toggle { margin-left: auto; font-size: 12px; color: var(--forest); text-decoration: underline; }
+.event-copy { padding: 0 20px 16px; }
+.event-copy p { font-size: 14px; line-height: 1.65; margin: 5px 0; }
+#event-advice { color: var(--forest); }
+@media(max-width:560px) { .seasonal-event strong { font-size: 17px; } .seasonal-event summary { gap: 9px; padding: 10px; } #event-art { width: 48px; height: 48px; } }
+
+body {
+  background: radial-gradient(ellipse at 12% 0%, #fff9e9, transparent 52%),
+    repeating-linear-gradient(0deg, #79554803 0 1px, transparent 1px 4px), var(--cream);
+}
+
+button, a, summary { -webkit-tap-highlight-color: transparent; }
+button { min-height: 44px; transition: background .18s, border-color .18s, box-shadow .18s, transform .18s; }
+button:disabled { opacity: .63; filter: saturate(.55); }
+button:not(:disabled):active { transform: translateY(1px); }
+button:focus-visible, summary:focus-visible, a:focus-visible, canvas:focus-visible {
+  outline: 3px solid var(--terracotta);
+  outline-offset: 4px;
+}
+summary { cursor: pointer; min-height: 44px; padding: 12px 0; }
+.game-shell { max-width: 1440px; padding: 28px 36px; }
+.game-shell > *, main > *, header > *, .heritage-strip > * { min-width: 0; }
+header { margin-bottom: 22px; }
+header .brand-mark {
+  background: var(--forest);
+  color: #f4dfab;
+  border: 3px double #cdb788;
+  box-shadow: 0 4px 0 #354d37, 0 8px 15px #79554817;
+}
+h1 { color: var(--forest); font-size: clamp(25px, 2.5vw, 36px); }
+.subtitle { color: var(--soil); }
+.eyebrow { color: var(--muted); font-size: 10px; line-height: 1.5; }
+.year-sign { background: #e7ddc6; border: 1px solid var(--line); padding: 12px 20px; border-radius: 50% 50% 10px 10px; }
+.year-sign strong { color: var(--forest); }
+.village-stats { padding: 16px 22px; margin-bottom: 14px; border: 1px solid var(--line); border-radius: 12px; background: #fffaedb0; box-shadow: 0 3px 0 #dbc9a548; gap: 24px; }
+.village-stats > div:not(:last-child) { padding-right: 24px; min-width: 150px; border-color: var(--line); }
+.village-stats strong { color: var(--forest); font-variant-numeric: tabular-nums; }
+.village-stats span, .village-stats small, .season-note { color: var(--muted); }
+.year-objectives { background: transparent; border: 0; border-bottom: 1px dashed var(--line); border-radius: 0; margin-bottom: 20px; padding: 8px 10px 16px; gap: 24px; }
+.year-objectives span { color: var(--muted); font-size: 10px; }
+.year-objectives p { font-size: 12px; color: var(--muted); }
+main { grid-template-columns: minmax(0, 1fr) 320px; gap: 22px; }
+.garden-panel { border: 1px solid #b8a079; border-radius: 18px 18px 10px 10px; background: var(--paper); box-shadow: 0 5px 0 #cbb68d, 0 12px 28px #79554812; }
+.panel-heading { padding: 22px 24px 17px; }
+.panel-heading h2 { color: var(--forest); font-size: 25px; }
+.live-tag { color: var(--muted); }
+.season-path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; padding: 0 20px; }
+.season-path span { font: 12px/1.4 Arial, sans-serif; padding: 10px 5px; text-align: center; background: #ede5d1; color: var(--muted); border-radius: 6px; }
+.season-path [aria-current] { color: #fff6dc; background: var(--forest); box-shadow: inset 0 -3px #2b4530; }
+.season-guidance { margin: 0; padding: 12px 22px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.canvas-wrap { overflow: hidden; border-top: 1px solid #dbd3ac; border-bottom: 1px solid #b7b586; }
+#farm { touch-action: pan-y; }
+.scene-label { color: var(--forest); background: #fff5d8a6; border: 1px solid #f7ebca; border-radius: 20px; font-size: 9px; }
+.garden-caption { align-items: center; padding: 7px 20px; color: var(--muted); }
+.garden-caption > span:last-of-type { display: none; }
+.garden-caption .book-link { flex-shrink: 0; }
+.soil-legend { font-size: 11px; color: var(--muted); padding-bottom: 16px; }
+aside { border: 1px solid #bfa581; border-top: 5px solid var(--soil); border-radius: 10px; padding: 20px; background: linear-gradient(100deg, #fff9eb, #f4e9d2); box-shadow: 0 4px 0 #d6c4a2, 0 12px 25px #7955480c; }
+.plot-heading { padding-bottom: 14px; }
+.plot-heading h2 { color: var(--forest); font-size: 29px; }
+.status { font-size: 12px; color: var(--forest); background: #dfe7cc; padding: 6px 10px; }
+.soil-readings { padding-top: 16px; }
+.meter-label { align-items: baseline; gap: 10px; font-size: 14px; }
+.meter-label strong, #plot-fertility { font: 11px/1.5 Arial, sans-serif; color: var(--forest); }
+meter { height: 11px; background: #e6dac1; border-radius: 8px; }
+meter::-webkit-meter-bar { background: #e6dac1; box-shadow: inset 0 1px 2px #79554820; }
+meter::-webkit-meter-optimum-value { transition: width .35s ease; background: var(--grass); }
+.history-details, .yield-details { border-bottom: 1px solid var(--line); }
+.history-details summary, .yield-details summary { color: var(--soil); font-size: 13px; }
+.history { border: 0; padding: 0 0 8px; }
+.history .eyebrow { display: none; }
+.history p, #rotation-feedback { color: var(--muted); font-size: 12px; }
+.plant-heading { margin-top: 17px; }
+.plant-heading h3 { color: var(--forest); font-size: 19px; }
+.plant-heading span { font-size: 11px; color: var(--muted); }
+.crop-choice { position: relative; min-width: 0; }
+.crop-card { min-height: 83px; border: 1px solid #d6c3a1; border-radius: 9px; padding: 10px; color: var(--ink); background: #fff9ec; box-shadow: 0 2px 0 #ddceb1; }
+.crop-card:not(:disabled):hover { border-color: #8baa67; background: #f7f4de; box-shadow: 0 4px 0 #bcc79c; }
+.crop-card.is-planted { border-color: var(--grass); background: #e9edd7; opacity: 1; }
+.crop-icon { width: 43px; height: 54px; background: #ede9d3; border-radius: 50% 50% 8px 8px; }
+.crop-illustration { width: 43px; height: 48px; cursor: inherit; }
+.crop-card strong { font-size: 18px; }
+.crop-card small { font: 11px/1.5 Arial, sans-serif; color: var(--muted); }
+.crop-card em { font-size: 11px; color: var(--forest); line-height: 1.5; }
+.plant-plus { color: var(--grass); }
+.crop-tooltip { pointer-events: none; position: absolute; z-index: 5; bottom: calc(100% + 5px); left: 0; right: 0; padding: 13px; background: #344b37; color: #fff4da; border-radius: 8px; box-shadow: 0 5px 18px #33291f30; font: 12px/1.6 Arial, sans-serif; visibility: hidden; opacity: 0; transition: opacity .15s; }
+@media(hover: hover) { .crop-choice:hover .crop-tooltip { visibility: visible; opacity: 1; } }
+.crop-choice:focus-within .crop-tooltip { visibility: visible; opacity: 1; }
+.hint { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 6px; }
+.yield-details { margin-bottom: 14px; }
+.yield-details p { font-size: 12px; line-height: 1.7; color: var(--muted); margin: 0 0 12px; }
+.compost { border-radius: 7px; padding: 12px; font-size: 14px; min-height: 46px; background: #eae5ce; color: var(--forest); }
+.compost span { font-size: 11px; margin-left: 6px; color: inherit; }
+:root .harvest-button { background: var(--forest); color: #fff5dd; border-bottom: 3px solid #2d4530; }
+.small-note { font-size: 11px; line-height: 1.6; color: var(--muted); }
+.advance { background: var(--forest); color: #fff4d5; border-radius: 9px; font-size: 18px; min-height: 54px; box-shadow: 0 4px 0 #d1bc93; }
+footer { border: 0; padding: 26px 0; }
+.objective h3 { color: var(--forest); font-size: 21px; }
+.objective p { color: var(--muted); font-size: 12px; }
+.objective-icon { color: var(--terracotta); }
+.heritage-strip { border-radius: 10px; background: #eee4cd; padding: 16px 20px; margin: 0 0 12px; }
+.heritage-intro p { font-size: 12px; color: var(--muted); }
+.heritage-progress small { color: var(--muted); font-size: 11px; }
+.book-link { min-height: 44px; font-size: 13px; color: var(--forest); }
+.learning-note { padding: 12px 18px; margin-top: 12px; border-radius: 0 8px 8px 0; }
+.learning-note p { font-size: 13px; }
+.notifications { padding-top: 14px; }
+.notifications p { padding: 12px 16px; border-radius: 7px; background: #fff8e7; border: 1px solid #dfcda9; color: var(--forest); font-size: 13px; animation: journal-in .25s ease-out; }
+.notifications p:not(:first-child) { background: transparent; border-color: transparent; padding: 2px 16px; font-size: 12px; color: var(--muted); }
+.footnote { color: var(--muted); font-size: 10px; line-height: 1.5; }
+dialog { color: var(--ink); overscroll-behavior: contain; }
+dialog[open] { animation: page-open .24s ease-out; }
+#heritage-book { background: repeating-linear-gradient(90deg, #79554802 0 1px, transparent 1px 6px), var(--paper); border-radius: 12px; }
+.book-source, .book-source a, .book-context { font-size: 12px; }
+.book-chapters { gap: 6px; }
+.book-chapters .book-link { padding: 10px 12px; }
+.book-chapters [aria-current] { background: var(--forest); color: #fff3d3; }
+#game-over { background: radial-gradient(ellipse at top, #fff9e3, var(--cream)); border-top-color: var(--forest); }
+#game-over[data-outcome="won"] .end-emblem { color: var(--gold); text-shadow: 0 3px #c9973740; }
+#game-over[data-outcome="lost"] { border-top-color: var(--terracotta); }
+#game-over[data-outcome="lost"] .end-emblem { color: var(--terracotta); }
+.end-stats dd { color: var(--forest); }
+#garden-guide { width: min(530px, calc(100% - 28px)); max-height: 90vh; overflow: auto; border: 2px solid #bba17a; border-radius: 16px; background: var(--paper); padding: 30px; text-align: center; box-shadow: 0 25px 80px #33291f50; }
+#garden-guide::backdrop { background: #2d4530b8; backdrop-filter: blur(3px); }
+.guide-flower { font-size: 48px; color: var(--grass); }
+#guide-title { font-size: 34px; line-height: 1.15; color: var(--forest); }
+#garden-guide > p { line-height: 1.6; color: var(--muted); }
+.guide-steps { padding-left: 22px; text-align: left; }
+.guide-steps li { padding: 10px 0 10px 8px; color: var(--terracotta); }
+.guide-steps strong { display: block; color: var(--forest); margin-bottom: 4px; font-size: 17px; }
+.guide-steps span { color: var(--muted); font-size: 14px; line-height: 1.6; }
+.guide-goal { background: #e7ecd6; padding: 12px; border-radius: 8px; font-size: 14px; }
+#close-guide { width: 100%; }
+#garden-guide > small { display: block; margin-top: 15px; font-size: 11px; color: var(--muted); }
+@keyframes journal-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes page-open { from { opacity: 0; transform: translateY(7px) scale(.99); } to { opacity: 1; transform: none; } }
+
+@media(max-width: 1100px) {
+  .game-shell { padding: 22px; }
+  main { grid-template-columns: minmax(0, 1fr) 295px; gap: 16px; }
+  aside { padding: 17px; }
+  .village-stats { gap: 18px; }
+  .village-stats > div:not(:last-child) { min-width: 130px; padding-right: 18px; }
+  .season-note { display: none; }
+  .panel-heading { padding: 18px; }
+  .live-tag { display: none; }
+  .season-path { padding: 0 12px; }
+}
+@media(max-width: 900px) {
+  main { grid-template-columns: minmax(0, 1fr); }
+  aside { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 22px; }
+  aside > * { grid-column: 1 / -1; }
+  .plot-heading, .soil-readings { grid-column: auto; }
+  #crops { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .crop-card { height: 100%; margin-bottom: 0; }
+  .year-objectives { gap: 16px; }
+  .year-objectives p { flex-basis: 100%; }
+  .garden-caption > span:first-child { font-size: 13px; }
+}
+@media(max-width: 560px) {
+  .game-shell { padding: 16px 12px; }
+  header { gap: 12px; flex-wrap: wrap; }
+  header > div:nth-child(2) { flex: 1; }
+  h1 { font-size: 25px; }
+  .year-sign { border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; }
+  .village-stats { padding: 14px 10px; gap: 10px; }
+  .village-stats > div:not(:last-child) { min-width: 0; padding-right: 10px; }
+  .village-stats span { font-size: 9px; line-height: 1.5; letter-spacing: .2px; }
+  .village-stats strong { font-size: 20px; }
+  .village-stats small { font-size: 12px; }
+  .season-path span { font-size: 11px; }
+  .panel-heading h2 { font-size: 23px; }
+  .garden-caption { padding: 8px 14px; }
+  .garden-caption > span:first-child { font-size: 11px; }
+  .scene-label { font-size: 8px; left: 10px; top: 10px; }
+  aside { padding: 16px; gap: 0 12px; }
+  #crops { gap: 9px; }
+  .crop-card { gap: 6px; padding: 9px 7px; }
+  .crop-card strong { font-size: 16px; }
+  .crop-card small, .crop-card em { font-size: 10px; }
+  .crop-icon { width: 32px; }
+  .crop-illustration { width: 32px; }
+  .heritage-progress, .heritage-links { width: 100%; flex-basis: 100%; }
+  .heritage-links { grid-template-columns: 1fr 1fr; }
+  .footnote { flex-wrap: wrap; }
+  #garden-guide { padding: 24px 18px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
